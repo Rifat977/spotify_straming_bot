@@ -1,1 +1,12 @@
-ip:port:username:password
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-usjcupgngywww9mhst-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-us7h46zg6eaycxplsr-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-usrhhs6yfot28ulvmz-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-uslms48eewcqenrasc-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-uszfkpckiiwrbvkxjm-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-uske9ar644qhkv0n53-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-us82paol6f70o4xbi9-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-usjqvzxbxw44hg4zyp-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-us5lsnpk8xtzxoo90p-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-usm7574k3sgb2w6oxs-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-us2x2ju610a7vnpc1t-sesstime-90:0502422374bd
+na.dcnl7rw1.lunaproxy.net:12233:user-lu9597871-region-us-sessid-us2aij87zlyz6vz18h-sesstime-90:0502422374bd

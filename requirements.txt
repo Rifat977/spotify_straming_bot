@@ -1,6 +1,0 @@
-selenium
-requests
-keyboard
-colorama
-pystyle
-pytz
