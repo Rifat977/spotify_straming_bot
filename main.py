@@ -139,7 +139,7 @@ def set_fake_geolocation(driver, latitude, longitude):
         """)
 
 def play_song_and_wait(driver, playmusic_xpath, next_button_xpath, min_play_time):
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, playmusic_xpath))).click()
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, playmusic_xpath))).click()
     time.sleep(min_play_time)
     next_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, next_button_xpath)))
     next_button.click()
@@ -165,6 +165,7 @@ def run_bot(username, password, playlists, use_proxy=False, proxy_info=None):
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument(f"user-agent={random_user_agent}")
     chrome_options.add_argument(f"--lang={random_language}")
+    chrome_options.add_argument("--start-maximized")
 
     if use_proxy and proxy_info:
         proxy_host, proxy_port, proxy_user, proxy_pass = proxy_info.split(':')
@@ -221,29 +222,42 @@ def run_bot(username, password, playlists, use_proxy=False, proxy_info=None):
                 except NoSuchElementException:
                     time.sleep(random.uniform(5, 14))
 
-            playmusic_xpath = "/html/body/div[4]/div/div[2]/div[3]/div[1]/div[2]/div[2]/div[2]/main/section/div[3]/div[2]/div/div/div[1]/button"
+            playmusic_xpath = "(//button[@data-testid='play-button']//span)[3]"
             next_button_xpath = "//button[contains(@aria-label, 'Next')]"
             mute_button_xpath = "/html/body/div[4]/div/div[2]/div[2]/footer/div/div[3]/div/div[3]/button"
-            song_base_xpath = "/html/body/div[4]/div/div[2]/div[3]/div[1]/div[2]/div[2]/div[2]/main/section/div[4]/div[1]/div[2]/div[2]/div[{index}]/div/div/div[2]"
-
-            min_play_time = 40
-
-            print(Fore.GREEN + f"Username: {username} - Listening process has started.")
-            
-            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, mute_button_xpath))).click()
-            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, playmusic_xpath))).click()
-            
-            print(Fore.GREEN + f"Song is playing. Waiting for at least {min_play_time} seconds...")
+            # song_base_xpath = "/html/body/div[4]/div/div[2]/div[3]/div[1]/div[2]/div[2]/div[2]/main/section/div[4]/div[1]/div[2]/div[2]/div[{index}]/div/div/div[2]"
+            song_base_xpath = "//div[@data-testid='tracklist-row']"
 
             song_count = 0
             while True:
+                song_count += 1
+                song_xpath = f"({song_base_xpath})[{song_count}]"
                 try:
-                    driver.find_element(By.XPATH, song_base_xpath.format(index=song_count + 1))
-                    song_count += 1
+                    driver.find_element(By.XPATH, song_xpath)
                 except NoSuchElementException:
                     break
 
             print(Fore.GREEN + f"Found {song_count} songs in the playlist {playlist_url} for account {username}.")
+
+            min_play_time = 5
+
+            print(Fore.GREEN + f"Username: {username} - Listening process has started.")
+            
+            try:
+                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, mute_button_xpath))).click()
+                print(Fore.GREEN + "Spotify sound muted")
+            except TimeoutException:
+                print(Fore.RED + "Failed to mute sound")
+                # continue
+
+            try:
+                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, playmusic_xpath))).click()
+                print(Fore.GREEN + "Song is playing. Waiting for at least " + str(min_play_time) + " seconds...")
+            except TimeoutException:
+                print(Fore.RED + "Failed to play song")
+                continue
+            
+            print(Fore.GREEN + f"Song is playing. Waiting for at least {min_play_time} seconds...")
 
             for i in range(song_count):
                 play_song_and_wait(driver, playmusic_xpath, next_button_xpath, min_play_time)
